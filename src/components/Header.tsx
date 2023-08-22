@@ -2,6 +2,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { setName } from "../redux/Slices/HeaderSlice"
 import { RootState } from "../redux/Store";
+import { HeaderPic, Headline, NameInput, Name} from "../styles/Header.styled";
+import HeaderFrame from "../assets/header-frame.png"
+import {BiSolidEditAlt} from 'react-icons/bi';
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -16,26 +19,31 @@ const Header = () => {
                 const name = input.value;
                 dispatch(setName(name))
             }
-        setShowInput(!showInput)
-            
+        setShowInput(!showInput) 
     };
+
+    const currentDate = new Date();
+    const formattedDate = currentDate.toDateString();
+    
 
   return (
     <div>
-        <div>
+        <HeaderPic src={HeaderFrame}/>
+        <Headline>
             <h1>Daily planner to get things done</h1>
-            {/* ha dagens datum, date.now ? */}
-        </div>
-         {!showInput ? <div>
-            <label htmlFor="name">To whom does this todo-list belong to?</label>
-            <input id="name" type="text" placeholder="name" />
+            <p>{formattedDate}</p>
+        </Headline>
+         {!showInput ? 
+         <NameInput>
+            <label htmlFor="name">State your name</label>
+            <input id="name" type="text" placeholder="Name" />
             <button onClick={addName}>Save</button>
-        </div> : null}
-         {showInput ? <div>
-            <strong>This todo list belongs to: </strong>
-            <p>{nameInput}</p>
-            <button onClick={() => {setShowInput(!showInput)}}>Change name</button>
-        </div> : null} 
+        </NameInput> : null}
+         {showInput ? 
+         <Name>
+            <h2>{nameInput}'s tasks</h2>
+            <BiSolidEditAlt id="change-name-btn" onClick={() => {setShowInput(!showInput)}}/>
+        </Name> : null} 
     </div>
   )
 }

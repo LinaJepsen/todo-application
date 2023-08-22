@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { editTodo } from '../redux/Slices/TodoListSlice';
-
+import {EditInputs} from "../styles/UpdateTodo.styled";
 interface Todo {
   id: number;
   title: string;
@@ -31,7 +31,7 @@ const UpdateTodo: React.FC<UpdateTodoProps> = ({ todo, showEditComp }) => {
   };
 
   return (
-    <div>
+    <EditInputs>
       <input
         type="text"
         value={updatedTitle}
@@ -42,8 +42,8 @@ const UpdateTodo: React.FC<UpdateTodoProps> = ({ todo, showEditComp }) => {
         value={updatedDesc}
         onChange={e => setUpdatedDesc(e.target.value)}
       />
-      <button onClick={handleUpdateTodo}>Update Todo</button>
-    </div>
+      <button id="edit-button" onClick={handleUpdateTodo}>Update task</button>
+    </EditInputs>
   );
 };
 

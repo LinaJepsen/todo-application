@@ -14,7 +14,7 @@ interface TodoState {
 }
 
 const initialState: TodoState = {
-    todos: [],
+    todos: [{id: 1, title: "Gör applikationen responsiv", desc: "Fixa det sista med stylingen", completed: false}],
     completedTodos: [],
     latestId: 0
 }

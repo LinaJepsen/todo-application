@@ -1,20 +1,23 @@
 import { RootState } from "../redux/Store"
 import { useSelector, useDispatch } from "react-redux"
+import { Container, TaskBox, Text, Buttons } from "../styles/List.styled";
 
 const CompletedTodos = () => {
 
   const listOfCompletedTodos = useSelector((state: RootState) => state.todoList.completedTodos);
 
   return (
-    <div>
-      <h2>Completed:</h2>
+    <Container>
+      {listOfCompletedTodos.length > 0 ? <h2>Completed tasks</h2> : null}
       {listOfCompletedTodos.map((todo) => (
-       <div key={todo.id} style={{border: "solid 1px black"}}>
-        <strong>{todo.id}. {todo.title}</strong>
-        <p>{todo.desc}</p>
-     </div>
+       <TaskBox key={todo.id}>
+        <Text>
+          <h3>{todo.title}</h3>
+          <p>{todo.desc}</p>
+        </Text>
+     </TaskBox>
       ))}
-    </div>
+    </Container>
   )
 }
 

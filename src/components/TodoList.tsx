@@ -1,16 +1,19 @@
 import { RootState } from "../redux/Store"
 import { useSelector, useDispatch } from "react-redux"
-import { deleteTodo, completeTodo, editTodo } from "../redux/Slices/TodoListSlice";
+import { deleteTodo, completeTodo } from "../redux/Slices/TodoListSlice";
 import { useState } from "react";
 import UpdateTodo from "./UpdateTodo";
+import {BsFillCheckCircleFill} from 'react-icons/bs'
+import {RiDeleteBinFill} from 'react-icons/ri';
+import {BiSolidEditAlt} from 'react-icons/bi';
+import { Container, TaskBox, Text, Buttons } from "../styles/List.styled";
 
 const TodoList = () => {
 
-  const [showEdit, setShowEdit] = useState<boolean>(false);
-
   const listOfTodos = useSelector((state: RootState) => state.todoList.todos);
-
   const dispatch = useDispatch();
+
+  const [showEditArray, setShowEditArray] = useState<boolean[]>(listOfTodos.map(() => false));
 
   //Delete a todo
   const removeTodo = (id:number) => {
@@ -22,27 +25,30 @@ const TodoList = () => {
     dispatch(completeTodo(id))
   }
 
-  //Show edit-form
-  const showEditComp = () => {
-    setShowEdit(!showEdit)
-  }
+  // Create a new array with the updated value for the clicked todo's edit form visibility
+  const showEditComp = (index: number) => {
+    const updatedShowEditArray = showEditArray.map((value, i) => i === index ? !value : value);
+    setShowEditArray(updatedShowEditArray);
+  };
+
 
   return (
-    <div>
-      <h2>All todos:</h2>
-      <div>
-        {listOfTodos.map((todo) => (
-          <div key={todo.id} style={{border: "solid 1px black"}}>
-            <strong>{todo.id}. {todo.title}</strong>
-            <p>{todo.desc}</p>
-            <button onClick={showEditComp}>Edit</button>
-            <button onClick={() => {removeTodo(todo.id)}}>Delete</button>
-            <button onClick={() => {checkTodo(todo.id)}}>Complete</button>
-            {showEdit ? <UpdateTodo todo={todo} showEditComp={showEditComp}/> : null }
-          </div>
+    <Container>
+        {listOfTodos.map((todo, index) => (
+          <TaskBox key={todo.id}>
+            {showEditArray[index] ? <UpdateTodo todo={todo} showEditComp={() => showEditComp(index)}/> : 
+            <Text>
+              <h3>{todo.title}</h3>
+              <p>{todo.desc}</p>
+            </Text>}
+            <Buttons>
+              <BsFillCheckCircleFill className="icon-style" onClick={() => {checkTodo(todo.id)}}/>
+              <BiSolidEditAlt className="icon-style" onClick={() => showEditComp(index)} />
+              <RiDeleteBinFill className="icon-style" onClick={() => {removeTodo(todo.id)}}/>
+            </Buttons>
+          </TaskBox>
         ))}
-      </div>
-    </div>
+    </Container>
   )
 }
 
