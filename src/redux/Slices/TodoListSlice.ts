@@ -14,9 +14,9 @@ interface TodoState {
 }
 
 const initialState: TodoState = {
-    todos: [{id: 1, title: "äta", desc: "mat", completed: false}],
+    todos: [],
     completedTodos: [],
-    latestId: 1
+    latestId: 0
 }
 
 export const todoSlice = createSlice({
