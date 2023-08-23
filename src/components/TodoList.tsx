@@ -13,7 +13,7 @@ const TodoList = () => {
   const listOfTodos = useSelector((state: RootState) => state.todoList.todos);
   const dispatch = useDispatch();
 
-  const [showEditArray, setShowEditArray] = useState<boolean[]>(listOfTodos.map(() => false));
+  const [selectedTodoId, setSelectedTodoId] = useState<number | null>(null);
 
   //Delete a todo
   const removeTodo = (id:number) => {
@@ -25,25 +25,26 @@ const TodoList = () => {
     dispatch(completeTodo(id))
   }
 
-  // Create a new array with the updated value for the clicked todo's edit form visibility
-  const showEditComp = (index: number) => {
-    const updatedShowEditArray = showEditArray.map((value, i) => i === index ? !value : value);
-    setShowEditArray(updatedShowEditArray);
-  };
-
+  //Show edit component
+  const showEditComp = (id: number) => {
+    setSelectedTodoId(id);
+  }
 
   return (
     <Container>
         {listOfTodos.map((todo, index) => (
           <TaskBox key={todo.id}>
-            {showEditArray[index] ? <UpdateTodo todo={todo} showEditComp={() => showEditComp(index)}/> : 
+            {selectedTodoId === todo.id ? (
+            <UpdateTodo todo={todo} showEditComp={() => setSelectedTodoId(null)} />
+          ) : (
             <Text>
               <h3>{todo.title}</h3>
               <p>{todo.desc}</p>
-            </Text>}
+            </Text>
+          )}
             <Buttons>
               <BsFillCheckCircleFill className="icon-style" onClick={() => {checkTodo(todo.id)}}/>
-              <BiSolidEditAlt className="icon-style" onClick={() => showEditComp(index)} />
+              <BiSolidEditAlt className="icon-style" onClick={() => showEditComp(todo.id)} />
               <RiDeleteBinFill className="icon-style" onClick={() => {removeTodo(todo.id)}}/>
             </Buttons>
           </TaskBox>

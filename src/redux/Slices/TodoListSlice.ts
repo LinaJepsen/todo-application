@@ -14,9 +14,9 @@ interface TodoState {
 }
 
 const initialState: TodoState = {
-    todos: [{id: 1, title: "Gör applikationen responsiv", desc: "Fixa det sista med stylingen", completed: false}],
+    todos: [{id: 1, title: "äta", desc: "mat", completed: false}],
     completedTodos: [],
-    latestId: 0
+    latestId: 1
 }
 
 export const todoSlice = createSlice({
