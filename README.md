@@ -1,3 +1,15 @@
+# Todo-application with React, Redux Toolkit and TypeScript.
+
+This is a simpel todo-application that was made for me to learn TypeScript and to practice Redux Toolkit.
+
+## Available interactions
+
+1. Add a name
+2. Add a new task with a title and a description
+3. Remove a task
+4. Edit a task
+5. Complete a task that ends up in a new list with completed tasks
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
