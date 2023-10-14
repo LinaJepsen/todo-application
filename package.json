@@ -1,7 +1,7 @@
 {
+  "homepage": "https://linajepsen.github.io/todo-application",
   "name": "todo-application",
   "version": "0.1.0",
-  "homepage": "https://linajepsen.github.io/todo-application",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
@@ -45,5 +45,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^6.0.0"
   }
 }
